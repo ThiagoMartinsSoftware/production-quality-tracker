@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 
 function PreAssembly() {
   const [alerts, setAlerts] = useState([]);
+  const [todayTotal, setTodayTotal] = useState(0);
+  const [resetting, setResetting] = useState(false);
 
   async function fetchAlerts() {
     try {
-      const response = await fetch("http://localhost:3000/alerts");
+      const response = await fetch(
+        "http://localhost:3000/alerts"
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch alerts");
@@ -15,105 +19,205 @@ function PreAssembly() {
 
       setAlerts(data);
     } catch (error) {
-      console.error("Error fetching alerts:", error);
+      console.error(
+        "Error fetching alerts:",
+        error
+      );
+    }
+  }
+
+  async function fetchTodayTotal() {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/alerts/today"
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to fetch shift alert count"
+        );
+      }
+
+      const data = await response.json();
+
+      setTodayTotal(data.total);
+    } catch (error) {
+      console.error(
+        "Error fetching shift alert count:",
+        error
+      );
     }
   }
 
   async function markAsAlerted(id) {
     try {
-      const response = await fetch(`http://localhost:3000/alerts/${id}`, {
-        method: "PATCH"
-      });
+      const response = await fetch(
+        `http://localhost:3000/alerts/${id}`,
+        {
+          method: "PATCH"
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to update alert");
+        throw new Error(
+          "Failed to update alert"
+        );
       }
 
-      setAlerts((currentAlerts) =>
-        currentAlerts.filter((alert) => alert._id !== id)
-      );
+      fetchAlerts();
     } catch (error) {
-      console.error("Error updating alert:", error);
+      console.error(
+        "Error updating alert:",
+        error
+      );
+    }
+  }
+
+  async function resetAlertCount() {
+    const confirmed = window.confirm(
+      "Deseja realmente iniciar uma nova contagem para o próximo turno?"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      setResetting(true);
+
+      const response = await fetch(
+        "http://localhost:3000/alerts/reset",
+        {
+          method: "POST"
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to reset alert count"
+        );
+      }
+
+      setTodayTotal(0);
+
+      await fetchTodayTotal();
+    } catch (error) {
+      console.error(
+        "Error resetting alert count:",
+        error
+      );
+    } finally {
+      setResetting(false);
     }
   }
 
   useEffect(() => {
     fetchAlerts();
+    fetchTodayTotal();
 
     const interval = setInterval(() => {
       fetchAlerts();
+      fetchTodayTotal();
     }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="pre-assembly-page">
-      <header className="pre-assembly-header">
-        <div>
-          <span className="page-label">PRODUCTION QUALITY TRACKER</span>
+    <div className="container">
 
-          <h1>Pré-Montagem</h1>
+      <h1>Pré-Montagem</h1>
 
-          <p>Reclamações recebidas das linhas de montagem</p>
+      <p>Reclamações recebidas da montagem</p>
+
+      {/* =========================
+          ALERTAS DO TURNO
+      ========================= */}
+
+      <div className="today-alerts-card">
+
+        <div className="today-alerts-content">
+
+          <span>ALERTAS DO TURNO</span>
+
+          <strong>{todayTotal}</strong>
+
+          <p>
+            reclamações recebidas
+          </p>
+
         </div>
 
-        <div className="pending-counter">
-          <span>{alerts.length}</span>
-          <small>PENDENTES</small>
-        </div>
-      </header>
+        <button
+          className="reset-alerts-button"
+          onClick={resetAlertCount}
+          disabled={resetting}
+        >
+          {resetting
+            ? "Resetando..."
+            : "Resetar contagem"}
+        </button>
 
-      <main className="alerts-container">
+      </div>
+
+      {/* =========================
+          ALERTAS PENDENTES
+      ========================= */}
+
+      <div className="alerts-list">
+
         {alerts.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">✓</div>
 
-            <h2>Nenhuma reclamação pendente</h2>
+            <h2>
+              Nenhum alerta pendente
+            </h2>
 
             <p>
-              Todas as reclamações recebidas foram devidamente alertadas.
+              Não existem reclamações
+              aguardando atendimento.
             </p>
+
           </div>
         ) : (
           alerts.map((alert) => (
-            <div className="alert-card" key={alert._id}>
-              <div className="alert-card-header">
-                <div className="alert-status">
-                  <span className="status-dot"></span>
-                  PENDENTE
-                </div>
-
-                <span className="alert-time">
-                  {new Date(alert.createdAt).toLocaleString("pt-BR")}
-                </span>
-              </div>
+            <div
+              className="alert-card"
+              key={alert._id}
+            >
 
               <div className="alert-card-content">
-                <span className="problem-label">PROBLEMA IDENTIFICADO</span>
 
-                <h2>{alert.problem}</h2>
+                <h2>
+                  {alert.problem}
+                </h2>
 
                 {alert.brand && (
-                  <div className="brand-info">
-                    <span className="brand-label">TAMPA</span>
-
-                    <span className="brand-name">{alert.brand}</span>
-                  </div>
+                  <span className="alert-brand">
+                    {alert.brand}
+                  </span>
                 )}
+
+                <span className="alert-status">
+                  Pendente
+                </span>
+
               </div>
 
               <button
-                className="alerted-button"
-                onClick={() => markAsAlerted(alert._id)}
+                onClick={() =>
+                  markAsAlerted(alert._id)
+                }
               >
-                <span>✓</span>
-                MARCAR COMO ALERTADO
+                Alertado
               </button>
+
             </div>
           ))
         )}
-      </main>
+
+      </div>
+
     </div>
   );
 }

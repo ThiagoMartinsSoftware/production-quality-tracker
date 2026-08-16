@@ -1,4 +1,5 @@
 import Alert from "../models/Alert.js";
+import ShiftCounter from "../models/ShiftCounter.js";
 
 export async function createAlert(req, res) {
   try {
@@ -10,7 +11,10 @@ export async function createAlert(req, res) {
       });
     }
 
-    if (brand && !["Electrolux", "Whirlpool"].includes(brand)) {
+    if (
+      brand &&
+      !["Electrolux", "Whirlpool"].includes(brand)
+    ) {
       return res.status(400).json({
         message: "Invalid brand"
       });
@@ -71,7 +75,10 @@ export async function markAlertAsAlerted(req, res) {
 
     return res.json(alert);
   } catch (error) {
-    console.error("Error updating alert:", error);
+    console.error(
+      "Error updating alert:",
+      error
+    );
 
     return res.status(500).json({
       message: "Error updating alert"
@@ -81,13 +88,31 @@ export async function markAlertAsAlerted(req, res) {
 
 export async function getAlertSummary(req, res) {
   try {
-    const total = await Alert.countDocuments();
+    let counter = await ShiftCounter.findOne();
+
+    if (!counter) {
+      counter = await ShiftCounter.create({
+        startedAt: new Date()
+      });
+    }
+
+    const filter = {
+      createdAt: {
+        $gte: counter.startedAt
+      }
+    };
+
+    const total = await Alert.countDocuments(
+      filter
+    );
 
     const pending = await Alert.countDocuments({
+      ...filter,
       status: "pending"
     });
 
     const alerted = await Alert.countDocuments({
+      ...filter,
       status: "alerted"
     });
 
@@ -97,10 +122,77 @@ export async function getAlertSummary(req, res) {
       alerted
     });
   } catch (error) {
-    console.error("Error fetching alert summary:", error);
+    console.error(
+      "Error fetching alert summary:",
+      error
+    );
 
     return res.status(500).json({
       message: "Error fetching alert summary"
+    });
+  }
+}
+
+export async function getTodayAlertCount(req, res) {
+  try {
+    let counter = await ShiftCounter.findOne();
+
+    if (!counter) {
+      counter = await ShiftCounter.create({
+        startedAt: new Date()
+      });
+    }
+
+    const total = await Alert.countDocuments({
+      createdAt: {
+        $gte: counter.startedAt
+      }
+    });
+
+    return res.json({
+      total,
+      startedAt: counter.startedAt
+    });
+  } catch (error) {
+    console.error(
+      "Error fetching shift alert count:",
+      error
+    );
+
+    return res.status(500).json({
+      message: "Error fetching shift alert count"
+    });
+  }
+}
+
+export async function resetAlertCount(req, res) {
+  try {
+    const now = new Date();
+
+    let counter = await ShiftCounter.findOne();
+
+    if (!counter) {
+      counter = await ShiftCounter.create({
+        startedAt: now
+      });
+    } else {
+      counter.startedAt = now;
+
+      await counter.save();
+    }
+
+    return res.json({
+      message: "Shift counter reset successfully",
+      startedAt: counter.startedAt
+    });
+  } catch (error) {
+    console.error(
+      "Error resetting shift counter:",
+      error
+    );
+
+    return res.status(500).json({
+      message: "Error resetting shift counter"
     });
   }
 }

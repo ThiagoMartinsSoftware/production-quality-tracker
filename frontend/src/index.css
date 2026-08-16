@@ -1053,3 +1053,332 @@ button {
     gap: 5px;
   }
 }
+
+
+
+/* ========================================
+   ALERTAS DO TURNO
+======================================== */
+
+.today-alerts-card {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto 25px;
+
+  padding: 22px 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.06);
+}
+
+.today-alerts-content {
+  flex: 1;
+
+  text-align: center;
+}
+
+.today-alerts-content span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #8992a2;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.today-alerts-content strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+.today-alerts-content p {
+  margin-top: 4px;
+
+  color: #697386;
+
+  font-size: 13px;
+}
+
+
+/* ========================================
+   BOTÃO RESET
+======================================== */
+
+.reset-alerts-button {
+  min-width: 150px;
+
+  height: 45px;
+
+  padding: 0 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #d1d7e0;
+  border-radius: 8px;
+
+  color: #4b5563;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.reset-alerts-button:hover {
+  background: #f8fafc;
+
+  border-color: #9ca3af;
+
+  color: #172033;
+}
+
+.reset-alerts-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* ========================================
+   LISTA DE ALERTAS
+======================================== */
+
+.alerts-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+/* ========================================
+   CARD DE ALERTA
+======================================== */
+
+.alert-card {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.05);
+}
+
+.alert-card-content {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.alert-card h2 {
+  width: 100%;
+
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 18px;
+}
+
+.alert-brand {
+  padding: 6px 10px;
+
+  background: #f1f5f9;
+
+  border-radius: 6px;
+
+  color: #374151;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.alert-status {
+  padding: 6px 10px;
+
+  background: #fff7ed;
+
+  border-radius: 6px;
+
+  color: #ea580c;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.alert-card button {
+  flex-shrink: 0;
+
+  min-width: 120px;
+
+  height: 45px;
+
+  padding: 0 18px;
+
+  background: #16a34a;
+
+  border: none;
+  border-radius: 8px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.alert-card button:hover {
+  background: #15803d;
+
+  transform: translateY(-1px);
+}
+
+
+/* ========================================
+   ESTADO VAZIO
+======================================== */
+
+.empty-state {
+  padding: 45px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  text-align: center;
+}
+
+.empty-state h2 {
+  margin-bottom: 8px;
+
+  color: #172033;
+
+  font-size: 19px;
+}
+
+.empty-state p {
+  color: #697386;
+
+  font-size: 14px;
+}
+
+
+/* ========================================
+   RESPONSIVO
+======================================== */
+
+@media (max-width: 600px) {
+  .today-alerts-card {
+    flex-direction: column;
+  }
+
+  .reset-alerts-button {
+    width: 100%;
+  }
+
+  .alert-card {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .alert-card button {
+    width: 100%;
+  }
+}
+
+
+/* ========================================
+   ALERTAS DO TURNO - LINHA
+======================================== */
+
+.line-shift-card {
+  width: 100%;
+
+  margin-bottom: 25px;
+
+  padding: 18px 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.06);
+
+  text-align: center;
+}
+
+.line-shift-card span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8992a2;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.line-shift-card strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.line-shift-card p {
+  margin-top: 4px;
+
+  color: #697386;
+
+  font-size: 12px;
+}

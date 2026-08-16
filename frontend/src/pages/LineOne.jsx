@@ -10,6 +10,8 @@ function LineOne() {
     alerted: 0
   });
 
+  const [shiftTotal, setShiftTotal] = useState(0);
+
   const problemsWithBrand = [
     "Tampa sem borracha",
     "Tampa sem terminal",
@@ -31,27 +33,61 @@ function LineOne() {
 
       setSummary(data);
     } catch (error) {
-      console.error("Error fetching summary:", error);
+      console.error(
+        "Error fetching summary:",
+        error
+      );
     }
   }
 
-  async function createAlert(problem, brand = null) {
+  async function fetchShiftTotal() {
     try {
-      const response = await fetch("http://localhost:3000/alerts", {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          problem,
-          brand
-        })
-      });
+      const response = await fetch(
+        "http://localhost:3000/alerts/today"
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to create alert");
+        throw new Error(
+          "Failed to fetch shift total"
+        );
+      }
+
+      const data = await response.json();
+
+      setShiftTotal(data.total);
+    } catch (error) {
+      console.error(
+        "Error fetching shift total:",
+        error
+      );
+    }
+  }
+
+  async function createAlert(
+    problem,
+    brand = null
+  ) {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/alerts",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            problem,
+            brand
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to create alert"
+        );
       }
 
       setSelectedProblem(null);
@@ -62,13 +98,20 @@ function LineOne() {
       });
 
       fetchSummary();
+      fetchShiftTotal();
+
     } catch (error) {
-      console.error("Error creating alert:", error);
+      console.error(
+        "Error creating alert:",
+        error
+      );
     }
   }
 
   function handleProblemClick(problem) {
-    if (problemsWithBrand.includes(problem)) {
+    if (
+      problemsWithBrand.includes(problem)
+    ) {
       setSelectedProblem(problem);
       return;
     }
@@ -78,9 +121,11 @@ function LineOne() {
 
   useEffect(() => {
     fetchSummary();
+    fetchShiftTotal();
 
     const interval = setInterval(() => {
       fetchSummary();
+      fetchShiftTotal();
     }, 3000);
 
     return () => clearInterval(interval);
@@ -101,9 +146,13 @@ function LineOne() {
   return (
     <div className="container">
 
-      <h1>Linha 1 e Linha 2 - Montagem</h1>
+      <h1>
+        Linha 1 e Linha 2 - Montagem
+      </h1>
 
-      <p>Relatar problema na tampa</p>
+      <p>
+        Relatar problema na tampa
+      </p>
 
       {/* =========================
           RESUMO
@@ -112,32 +161,74 @@ function LineOne() {
       <div className="summary-card">
 
         <div className="summary-header">
+
           <h2>Resumo</h2>
 
-          <span>STATUS DOS ALERTAS</span>
+          <span>
+            STATUS DOS ALERTAS
+          </span>
+
         </div>
 
         <div className="summary-items">
 
           <div className="summary-item">
-            <strong>{summary.total}</strong>
 
-            <span>Total enviados</span>
+            <strong>
+              {summary.total}
+            </strong>
+
+            <span>
+              Total enviados
+            </span>
+
           </div>
 
           <div className="summary-item pending">
-            <strong>{summary.pending}</strong>
 
-            <span>Pendentes</span>
+            <strong>
+              {summary.pending}
+            </strong>
+
+            <span>
+              Pendentes
+            </span>
+
           </div>
 
           <div className="summary-item alerted">
-            <strong>{summary.alerted}</strong>
 
-            <span>Alertados</span>
+            <strong>
+              {summary.alerted}
+            </strong>
+
+            <span>
+              Alertados
+            </span>
+
           </div>
 
         </div>
+
+      </div>
+
+      {/* =========================
+          ALERTAS DO TURNO
+      ========================= */}
+
+      <div className="line-shift-card">
+
+        <span>
+          ALERTAS DO TURNO
+        </span>
+
+        <strong>
+          {shiftTotal}
+        </strong>
+
+        <p>
+          reclamações enviadas
+        </p>
 
       </div>
 
@@ -147,7 +238,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Tampa sem borracha")
+          handleProblemClick(
+            "Tampa sem borracha"
+          )
         }
       >
         Tampa sem borracha
@@ -155,7 +248,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Tampa sem terminal")
+          handleProblemClick(
+            "Tampa sem terminal"
+          )
         }
       >
         Tampa sem terminal
@@ -163,7 +258,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Terminal mal rebitado")
+          handleProblemClick(
+            "Terminal mal rebitado"
+          )
         }
       >
         Terminal mal rebitado
@@ -171,7 +268,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Tampa sem pino")
+          handleProblemClick(
+            "Tampa sem pino"
+          )
         }
       >
         Tampa sem pino
@@ -179,7 +278,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Tampa com pino danificado")
+          handleProblemClick(
+            "Tampa com pino danificado"
+          )
         }
       >
         Tampa com pino danificado
@@ -187,7 +288,9 @@ function LineOne() {
 
       <button
         onClick={() =>
-          handleProblemClick("Tampa quebrada")
+          handleProblemClick(
+            "Tampa quebrada"
+          )
         }
       >
         Tampa quebrada
@@ -200,9 +303,13 @@ function LineOne() {
       {selectedProblem && (
         <div className="brand-card">
 
-          <h2>{selectedProblem}</h2>
+          <h2>
+            {selectedProblem}
+          </h2>
 
-          <p>Selecione a marca da tampa</p>
+          <p>
+            Selecione a marca da tampa
+          </p>
 
           <button
             onClick={() =>
@@ -250,9 +357,13 @@ function LineOne() {
               ✓
             </div>
 
-            <h2>Alerta enviado</h2>
+            <h2>
+              Alerta enviado
+            </h2>
 
-            <p>{successMessage.problem}</p>
+            <p>
+              {successMessage.problem}
+            </p>
 
             {successMessage.brand && (
               <span>
