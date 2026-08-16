@@ -1,22 +1,22 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import LineOne from "./pages/LineOne.jsx";
+import PreAssembly from "./pages/PreAssembly.jsx";
+
 function App() {
   return (
-    <div className="container">
-      <h1>Linha 1</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/linha-1" element={<LineOne />} />
 
-      <p>Relatar problema na tampa</p>
+        <Route path="/pre-montagem" element={<PreAssembly />} />
 
-      <button>
-        Tampa sem borracha
-      </button>
-
-      <button>
-        Tampa sem terminal
-      </button>
-
-      <button>
-        Outro problema
-      </button>
-    </div>
+        <Route
+          path="*"
+          element={<Navigate to="/linha-1" replace />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

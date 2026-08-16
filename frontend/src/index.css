@@ -4,32 +4,1052 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #172033;
+  background: #eef1f5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-}
-
-.container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 30px;
-}
-
-p {
-  margin-bottom: 20px;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #eef1f5;
 }
 
 button {
+  font-family: inherit;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 50px 30px;
+}
+
+/* =========================
+   TÍTULOS
+========================= */
+
+.container h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #172033;
+  margin-bottom: 10px;
+}
+
+.container > p {
+  color: #697386;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
+.container > button {
   display: block;
   width: 100%;
-  padding: 15px;
+  min-height: 65px;
+
   margin-bottom: 15px;
-  font-size: 16px;
+
+  border: 1px solid #d9dee7;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #172033;
+
+  font-size: 17px;
+  font-weight: 600;
+
   cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.container > button:hover {
+  transform: translateY(-2px);
+
+  border-color: #2563eb;
+
+  box-shadow: 0 8px 20px rgba(23, 32, 51, 0.08);
+
+  background: #f8faff;
+}
+
+.container > button:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   ALERTAS
+========================= */
+
+.alert {
+  position: relative;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 12px;
+
+  padding: 24px;
+
+  margin-bottom: 18px;
+
+  box-shadow: 0 4px 14px rgba(23, 32, 51, 0.06);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.alert:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 24px rgba(23, 32, 51, 0.09);
+}
+
+.alert::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 5px;
+
+  border-radius: 12px 0 0 12px;
+
+  background: #ef4444;
+}
+
+.alert h2 {
+  margin-bottom: 10px;
+
+  padding-left: 8px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+.alert p {
+  padding-left: 8px;
+
+  margin-bottom: 20px;
+
+  color: #7a8496;
+
+  font-size: 14px;
+}
+
+/* =========================
+   BOTÃO ALERTADO
+========================= */
+
+.alert button {
+  width: 100%;
+
+  padding: 13px 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.alert button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.alert button:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   NENHUM ALERTA
+========================= */
+
+.container > p:last-child {
+  color: #7a8496;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 600px) {
+  .container {
+    padding: 30px 18px;
+  }
+
+  .container h1 {
+    font-size: 30px;
+  }
+
+  .container > p {
+    font-size: 15px;
+  }
+
+  .container > button {
+    min-height: 60px;
+    font-size: 16px;
+  }
+
+  .alert {
+    padding: 20px;
+  }
+}
+
+
+
+
+/* ========================================
+   PRÉ-MONTAGEM
+======================================== */
+
+.pre-assembly-page {
+  min-height: 100vh;
+  background: #eef1f5;
+  padding: 45px 30px;
+}
+
+.pre-assembly-header {
+  max-width: 1000px;
+  margin: 0 auto 35px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 30px;
+}
+
+.page-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #2563eb;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.pre-assembly-header h1 {
+  margin-bottom: 8px;
+
+  color: #172033;
+
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.pre-assembly-header p {
+  color: #697386;
+
+  font-size: 16px;
+}
+
+/* ========================================
+   CONTADOR
+======================================== */
+
+.pending-counter {
+  min-width: 110px;
+
+  padding: 16px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow: 0 4px 14px rgba(23, 32, 51, 0.05);
+}
+
+.pending-counter span {
+  display: block;
+
+  color: #ef4444;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.pending-counter small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #7a8496;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ========================================
+   CONTAINER DOS ALERTAS
+======================================== */
+
+.alerts-container {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+}
+
+/* ========================================
+   CARD DO ALERTA
+======================================== */
+
+.alert-card {
+  position: relative;
+
+  margin-bottom: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.06);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.alert-card::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 5px;
+
+  background: #ef4444;
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 9px 25px rgba(23, 32, 51, 0.09);
+}
+
+/* ========================================
+   HEADER DO CARD
+======================================== */
+
+.alert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 22px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.alert-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.alert-time {
+  color: #8992a2;
+
+  font-size: 12px;
+}
+
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.alert-card-content {
+  padding: 24px 27px;
+}
+
+.problem-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #8992a2;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.alert-card-content h2 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ========================================
+   MARCA
+======================================== */
+
+.brand-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 18px;
+
+  padding: 8px 13px;
+
+  background: #f4f6f9;
+
+  border: 1px solid #e3e7ed;
+  border-radius: 7px;
+}
+
+.brand-label {
+  color: #8992a2;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.brand-name {
+  color: #172033;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ========================================
+   BOTÃO ALERTADO
+======================================== */
+
+.alerted-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  width: calc(100% - 44px);
+
+  margin: 0 22px 22px;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.alerted-button span {
+  font-size: 16px;
+}
+
+.alerted-button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+.alerted-button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   ESTADO VAZIO
+======================================== */
+
+.empty-state {
+  padding: 70px 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  text-align: center;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.05);
+}
+
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: #ecfdf3;
+
+  color: #16a34a;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.empty-state h2 {
+  margin-bottom: 8px;
+
+  color: #172033;
+
+  font-size: 20px;
+}
+
+.empty-state p {
+  color: #8992a2;
+
+  font-size: 14px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 700px) {
+  .pre-assembly-page {
+    padding: 30px 18px;
+  }
+
+  .pre-assembly-header {
+    align-items: flex-start;
+  }
+
+  .pre-assembly-header h1 {
+    font-size: 30px;
+  }
+
+  .pending-counter {
+    min-width: 90px;
+  }
+
+  .alert-card-content h2 {
+    font-size: 20px;
+  }
+
+  .alert-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+
+/* ========================================
+   MODAL - SELEÇÃO DA MARCA
+======================================== */
+
+.brand-card {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: min(500px, calc(100% - 40px));
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e5eb;
+  border-radius: 18px;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.25),
+    0 8px 25px rgba(23, 32, 51, 0.12);
+
+  z-index: 1001;
+
+  animation: modalAppear 0.2s ease-out;
+}
+
+/* Fundo escuro atrás do modal */
+
+.brand-card::before {
+  content: "";
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: 100vw;
+  height: 100vh;
+
+  transform: translate(-50%, -50%);
+
+  background: rgba(15, 23, 42, 0.55);
+
+  z-index: -1;
+
+  backdrop-filter: blur(3px);
+}
+
+/* ========================================
+   TÍTULO
+======================================== */
+
+.brand-card h2 {
+  margin: 0 0 8px;
+
+  color: #172033;
+
+  font-size: 25px;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.brand-card > p {
+  margin: 0 0 30px;
+
+  color: black !important;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+/* ========================================
+   BOTÕES
+======================================== */
+
+.brand-card button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 64px;
+
+  margin-bottom: 14px;
+
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+/* Electrolux */
+
+.brand-card button:nth-of-type(1) {
+  background: #172033;
+
+  border: 1px solid #172033;
+
+  color: #ffffff;
+}
+
+.brand-card button:nth-of-type(1):hover {
+  background: #26334d;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(23, 32, 51, 0.2);
+}
+
+/* Whirlpool */
+
+.brand-card button:nth-of-type(2) {
+  background: #2563eb;
+
+  border: 1px solid #2563eb;
+
+  color: #ffffff;
+}
+
+.brand-card button:nth-of-type(2):hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* Cancelar */
+
+.brand-card button:nth-of-type(3) {
+  height: 50px;
+
+  margin-top: 8px;
+  margin-bottom: 0;
+
+  background: #ffffff;
+
+  border: 1px solid #d9dee7;
+
+  color: #697386;
+
+  font-size: 14px;
+}
+
+.brand-card button:nth-of-type(3):hover {
+  background: #f5f6f8;
+
+  color: #172033;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* ========================================
+   ANIMAÇÃO
+======================================== */
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -47%) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 600px) {
+  .brand-card {
+    width: calc(100% - 30px);
+
+    padding: 28px 22px;
+  }
+
+  .brand-card h2 {
+    font-size: 21px;
+  }
+
+  .brand-card button {
+    height: 60px;
+  }
+}
+
+/* ========================================
+   CARD DE SUCESSO
+======================================== */
+
+.success-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.35);
+
+  backdrop-filter: blur(2px);
+
+  z-index: 2000;
+
+  animation: successOverlayAppear 0.2s ease-out;
+}
+
+.success-card {
+  width: min(400px, calc(100% - 40px));
+
+  padding: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e5eb;
+  border-radius: 16px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+
+  text-align: center;
+
+  animation: successCardAppear 0.2s ease-out;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  background: #ecfdf3;
+
+  color: #16a34a;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.success-card h2 {
+  margin-bottom: 8px;
+
+  color: #172033;
+
+  font-size: 23px;
+}
+
+.success-card p {
+  margin-bottom: 10px;
+
+  color: #697386;
+
+  font-size: 15px;
+}
+
+.success-card span {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  background: #f1f5f9;
+
+  border-radius: 6px;
+
+  color: #374151;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ========================================
+   ANIMAÇÕES
+======================================== */
+
+@keyframes successOverlayAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes successCardAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   RESUMO DOS ALERTAS
+======================================== */
+
+.summary-card {
+  width: 100%;
+
+  margin-bottom: 30px;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e0e5ec;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(23, 32, 51, 0.06);
+}
+
+.summary-header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.summary-header h2 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 18px;
+}
+
+.summary-header span {
+  color: #8992a2;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.summary-items {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+.summary-item {
+  padding: 18px;
+
+  background: #f7f8fa;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.summary-item strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #172033;
+
+  font-size: 28px;
+}
+
+.summary-item span {
+  color: #697386;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Pendentes */
+
+.summary-item.pending {
+  background: #fff7ed;
+
+  border-color: #fed7aa;
+}
+
+.summary-item.pending strong {
+  color: #ea580c;
+}
+
+/* Alertados */
+
+.summary-item.alerted {
+  background: #ecfdf3;
+
+  border-color: #bbf7d0;
+}
+
+.summary-item.alerted strong {
+  color: #16a34a;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 600px) {
+  .summary-items {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 5px;
+  }
 }
