@@ -242,6 +242,7 @@ production-quality-tracker/
 ├── backend/
 │   │
 │   ├── src/
+│   │   │
 │   │   ├── controllers/
 │   │   │   └── alertController.js
 │   │   │
@@ -256,20 +257,33 @@ production-quality-tracker/
 │   │
 │   ├── .env
 │   ├── .gitignore
-│   └── package.json
+│   ├── package.json
+│   └── package-lock.json
 │
 ├── frontend/
 │   │
 │   ├── src/
+│   │   │
 │   │   ├── components/
+│   │   │   └── ...
+│   │   │
 │   │   ├── pages/
+│   │   │   ├── LineOne/
+│   │   │   └── PreAssembly/
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
 │   │   └── ...
 │   │
 │   ├── .env
 │   ├── .gitignore
-│   └── package.json
+│   ├── index.html
+│   ├── package.json
+│   └── package-lock.json
 │
-└── README.md
+├── .gitignore
+├── README.md
+└── LICENSE
 
 ---
 
