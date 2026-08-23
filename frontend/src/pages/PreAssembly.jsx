@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 function PreAssembly() {
   const [alerts, setAlerts] = useState([]);
   const [todayTotal, setTodayTotal] = useState(0);
-  const [resetting, setResetting] = useState(false);
+  const [resetting, setResetting] = useState(false)
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   async function fetchAlerts() {
     try {
-      const response = await fetch(
-        "http://localhost:3000/alerts"
-      );
+     const response = await fetch(`${API_URL}/alerts`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch alerts");
@@ -28,9 +27,7 @@ function PreAssembly() {
 
   async function fetchTodayTotal() {
     try {
-      const response = await fetch(
-        "http://localhost:3000/alerts/today"
-      );
+     const response = await fetch(`${API_URL}/alerts/today`);
 
       if (!response.ok) {
         throw new Error(
@@ -51,12 +48,9 @@ function PreAssembly() {
 
   async function markAsAlerted(id) {
     try {
-      const response = await fetch(
-        `http://localhost:3000/alerts/${id}`,
-        {
-          method: "PATCH"
-        }
-      );
+    const response = await fetch(`${API_URL}/alerts/${id}`, {
+        method: "PATCH"
+      });
 
       if (!response.ok) {
         throw new Error(
@@ -85,12 +79,9 @@ function PreAssembly() {
     try {
       setResetting(true);
 
-      const response = await fetch(
-        "http://localhost:3000/alerts/reset",
-        {
-          method: "POST"
-        }
-      );
+     const response = await fetch(`${API_URL}/alerts/reset`, {
+        method: "POST"
+      });
 
       if (!response.ok) {
         throw new Error(
