@@ -1,4 +1,4 @@
-import Alert from "../models/Alert.js";
+import Alert from "../models/alert.js";
 import ShiftCounter from "../models/ShiftCounter.js";
 
 export async function createAlert(req, res) {
