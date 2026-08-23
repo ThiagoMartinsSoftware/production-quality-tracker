@@ -505,12 +505,4 @@ Projeto desenvolvido para fins de aprendizado, portfólio e aplicação prática
 
 ---
 
-## 🎥 Demonstração
-
-O funcionamento completo do sistema pode ser visualizado no vídeo abaixo:
-
-COLOCAR_LINK_DO_YOUTUBE_AQUI
-
----
-
 ⭐ Se este projeto foi útil ou interessante, considere deixar uma estrela no repositório.
