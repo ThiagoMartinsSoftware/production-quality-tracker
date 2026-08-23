@@ -63,7 +63,7 @@ export async function markAlertAsAlerted(req, res) {
         status: "alerted"
       },
       {
-        new: true
+        returnDocument: "after"
       }
     );
 
