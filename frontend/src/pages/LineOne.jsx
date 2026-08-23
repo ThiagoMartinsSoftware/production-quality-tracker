@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function LineOne() {
   const [selectedProblem, setSelectedProblem] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   const [summary, setSummary] = useState({
     total: 0,
@@ -21,9 +22,7 @@ function LineOne() {
 
   async function fetchSummary() {
     try {
-      const response = await fetch(
-        "http://localhost:3000/alerts/summary"
-      );
+    const response = await fetch(`${API_URL}/alerts/summary`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch summary");
@@ -42,9 +41,7 @@ function LineOne() {
 
   async function fetchShiftTotal() {
     try {
-      const response = await fetch(
-        "http://localhost:3000/alerts/today"
-      );
+     const response = await fetch(`${API_URL}/alerts/today`);
 
       if (!response.ok) {
         throw new Error(
@@ -68,21 +65,18 @@ function LineOne() {
     brand = null
   ) {
     try {
-      const response = await fetch(
-        "http://localhost:3000/alerts",
-        {
-          method: "POST",
+     const response = await fetch(`${API_URL}/alerts`, {
+        method: "POST",
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+        headers: {
+          "Content-Type": "application/json"
+        },
 
-          body: JSON.stringify({
-            problem,
-            brand
-          })
-        }
-      );
+        body: JSON.stringify({
+          problem,
+          brand
+        })
+      });
 
       if (!response.ok) {
         throw new Error(
