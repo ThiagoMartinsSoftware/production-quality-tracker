@@ -235,55 +235,23 @@ Os registros antigos continuam preservados no MongoDB.
 
 ---
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
-production-quality-tracker/
-│
-├── backend/
-│   │
-│   ├── src/
-│   │   │
-│   │   ├── controllers/
-│   │   │   └── alertController.js
-│   │   │
-│   │   ├── models/
-│   │   │   ├── Alert.js
-│   │   │   └── ShiftCounter.js
-│   │   │
-│   │   ├── routes/
-│   │   │   └── alertRoutes.js
-│   │   │
-│   │   └── server.js
-│   │
-│   ├── .env
-│   ├── .gitignore
-│   ├── package.json
-│   └── package-lock.json
-│
-├── frontend/
-│   │
-│   ├── src/
-│   │   │
-│   │   ├── components/
-│   │   │   └── ...
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── LineOne/
-│   │   │   └── PreAssembly/
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── ...
-│   │
-│   ├── .env
-│   ├── .gitignore
-│   ├── index.html
-│   ├── package.json
-│   └── package-lock.json
-│
-├── .gitignore
-├── README.md
-└── LICENSE
+```
+/backend             → Servidor e API Node.js
+├── /src
+│   ├── /config    → Configurações (banco de dados)
+│   ├── /controllers → Regras de negócio e controle das requisições
+│   ├── /models    → Estrutura e modelos de dados (Alert, ShiftCounter)
+│   ├── /routes    → Definição das rotas e endpoints
+│   └── server.js  → Ponto de entrada do servidor
+/frontend            → Interface do usuário em React
+├── /src
+│   ├── /pages     → Visualizações principais (LineOne, PreAssembly)
+│   ├── App.jsx    → Componente raiz da aplicação
+│   ├── main.jsx   → Ponto de entrada do React
+│   └── index.css  → Estilização global
+```
 
 ---
 
